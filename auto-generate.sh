@@ -36,7 +36,7 @@ curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-
 git add "$FILE_NAME"
 if ! git diff --staged --quiet; then
     git commit -m "Auto-generated $FILE_NAME via Gemini API"
-    git push -u origin "$BRANCH_NAME"
+    git push -f -u origin "$BRANCH_NAME"
     echo "Successfully pushed to $BRANCH_NAME"
 
     # --- ここからPull Requestの自動作成処理 ---
