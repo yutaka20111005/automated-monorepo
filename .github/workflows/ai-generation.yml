@@ -8,6 +8,11 @@ on:
 jobs:
   generate-and-push:
     runs-on: ubuntu-latest
+    # --- PR作成用の権限（pull-requests: write）を追加 ---
+    permissions:
+      contents: write
+      pull-requests: write
+    # ------------------------------------------------
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,5 +27,8 @@ jobs:
       - name: Run Auto Generation Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # --- GitHub CLIが使用するトークンを環境変数として渡す ---
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # --------------------------------------------------
         run: |
           ./auto-generate.sh "feature/daily-app-c" "app-c-worktree" "app.js" "Node.jsを使用した現在の時刻を出力するスクリプトを書いてください。"
