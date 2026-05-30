@@ -2,9 +2,8 @@ name: Scheduled AI Code Generation
 
 on:
   schedule:
-    # 毎日 日本時間の午前9時（UTCの午前0時）に実行
     - cron: '0 0 * * *'
-  workflow_dispatch: # GitHubの画面から手動実行も可能にする設定
+  workflow_dispatch:
 
 jobs:
   generate-and-push:
@@ -13,25 +12,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # ワークツリー用に全履歴を取得
+          fetch-depth: 0
 
       - name: Setup Git user
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Setup Environment (Node.js/Python等)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Gemini CLI
-        # ※ご利用のGemini CLIの実際のインストールコマンドに書き換えてください
-        run: npm install -g @google/generative-ai-cli 
-
       - name: Run Auto Generation Script
         env:
-          # GitHub Secretsに設定したAPIキーを環境変数として渡す
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           ./auto-generate.sh "feature/daily-app-c" "app-c-worktree" "app.js" "Node.jsを使用した現在の時刻を出力するスクリプトを書いてください。"
