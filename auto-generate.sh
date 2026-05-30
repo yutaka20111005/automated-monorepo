@@ -45,7 +45,7 @@ if ! git diff --staged --quiet; then
         echo "Creating Pull Request..."
         gh pr create \
           --title "【AI自動生成】$FILE_NAME の追加" \
-          --body "Gemini APIによって自動生成されたコード（$FILE_NAME）です。コードを確認し、問題がなければマージしてください。"$'\n\n'強度プロンプト: "$USER_PROMPT" \
+          --body "Gemini APIによって自動生成されたコード（$FILE_NAME）です。コードを確認し、問題がなければマージしてください。"$'\n\n'"プロンプト: $USER_PROMPT" \
           --base master \
           --head "$BRANCH_NAME"
     else
