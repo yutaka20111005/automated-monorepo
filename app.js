@@ -1,3 +1,4 @@
 ```javascript
-console.log(new Date().toLocaleTimeString());
+const now = new Date();
+console.log(now.toLocaleTimeString());
 ```
